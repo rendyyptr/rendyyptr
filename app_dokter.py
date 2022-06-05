@@ -1,58 +1,17 @@
-import imghdr
 import io
 import string
 import time
 import os
 import cv2
-from unittest import result
 import numpy as np
 import tensorflow as tf
 import base64
-from PIL import Image
+from PIL import Image, ImageOps
 from flask import Flask, jsonify, request
 from tensorflow import keras
 from keras import models
 
-model = models.load_model('D:\MBKM\BANGKIT\TensorFlow Practice\.venv\My_Model_4.h5')
-def prepare_image(img):
-    img = np.array(Image.open(io.BytesIO(img)))
-    img = cv2.resize(img, (426, 426, 3))
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img = gaussian = cv2.addWeighted(img,4, cv2.GaussianBlur(img , (0,0) , 426/10) ,-4 ,128)
-    #img = base64.b64encode(img).decode('utf-8')
-    return img
-
-
-def predict_result(img):
-    result = []
-    predicted = np.argmax(model.predict(img))
-    if predicted == 0:
-        # return "Terindikasi Diabetes"
-        result.append("Terindikasi Diabetes Ringan")
-        # return result
-    if predicted == 1:
-        # return "Terindikasi Diabetes"
-        result.append("Terindikasi Diabetes Sedang")
-        # return result
-    if predicted == 2:
-        # return "Tidak Terindikasi Diabetes"
-        result.append("Tidak Terindikasi Diabetes")
-        # return result
-    if predicted == 3:
-        # return "Terindikasi Diabetes"
-        result.append("Terindikasi Diabetes Parah")
-        # return result
-    if predicted == 4:
-        # return "Terindikasi Diabetes"
-        result.append("Terindikasi Diabetes Sangat Parah")
-        # return result
-    img_64 = base64.b64encode(img).decode('utf-8')
-    hasil = {
-        # "predict" : result,
-        "image_base64" : img_64
-    }
-    return hasil
-
+model = models.load_model('{}/My_Model_4.h5'.format(os.getcwd()))
 app = Flask(__name__)
 
 @app.route('/predict', methods=['POST'])
@@ -62,14 +21,41 @@ def infer_image():
     
     file = request.files.get('file')
 
-    if not file:
-        return "File not found"
-
     img_bytes = file.read()
-    img = prepare_image(img_bytes)
-    prediction=predict_result(img)
-    return jsonify(prediction)
-    
+
+    images = np.array(Image.open(io.BytesIO(img_bytes)))
+    gambar = cv2.cvtColor(images, cv2.COLOR_BGR2GRAY)
+    gaussian = cv2.addWeighted(gambar,4, cv2.GaussianBlur( gambar , (0,0) , 426/10) ,-4 ,128)
+
+    cv2.imwrite('{}/DR1_COBAGAUSSIAN.jpg'.format(os.getcwd()), gaussian)
+
+    gmbr = tf.keras.preprocessing.image.load_img('{}/DR1_COBAGAUSSIAN.jpg'.format(os.getcwd()), target_size=(426,426))
+    x = tf.keras.preprocessing.image.img_to_array(gmbr)
+    x = x / 255
+    x = np.expand_dims(x,axis=0)
+    gambarr = np.vstack([x])
+    kelas = model.predict(gambarr,batch_size=32)
+    predicted = np.argmax(kelas)
+
+    result = []
+    if predicted == 0:
+        result.append("Terindikasi Diabetes Ringan")
+    if predicted == 1:
+        result.append("Terindikasi Diabetes Sedang")
+    if predicted == 2:
+        result.append("Tidak Terindikasi Diabetes")
+    if predicted == 3:
+        result.append("Terindikasi Diabetes Parah")
+    if predicted == 4:
+        result.append("Terindikasi Diabetes Sangat Parah")
+    img_64 = base64.b64encode(gambarr).decode('utf-8')
+    hasil = {
+        "predict" : result,
+        "image" : img_64
+    }
+    os.remove('{}/DR1_COBAGAUSSIAN.jpg'.format(os.getcwd()))
+
+    return jsonify(hasil)
 
 @app.route('/', methods=['GET'])
 def index():
@@ -77,4 +63,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1')
+    app.run(debug=True, host='0.0.0.0')
