@@ -22,13 +22,16 @@ def index():
             return jsonify({"error": "no file"})
 
         try:
+            img64 = ''
             model = models.load_model('{}/Blood_Sugar_Classification.h5'.format(os.getcwd()))
             model2 = models.load_model('{}/Mata_atau_Bukan.h5'.format(os.getcwd()))
             img_bytes = file.read()
             img = Image.open(io.BytesIO(img_bytes))
             img = img.resize((150, 150))
+            img.save('{}/mata_resize.jpg'.format(os.getcwd()))
             img = np.array(img)
             img = np.expand_dims(img, 0)
+            
 
             kelas_mata = []
             bukan_mata = []
@@ -52,16 +55,21 @@ def index():
                     result_eye.append("Terindikasi Diabetes (Katarak)")
                 if predicted == 2:
                     result_eye.append("Tidak Terindikasi Diabetes")
-                img_64 = base64.b64encode(img).decode('utf-8')
+                
+                with open('{}/mata_resize.jpg'.format(os.getcwd()), 'rb') as binary_file:
+                    binary_file_data = binary_file.read()
+                    binary_file_encoded = base64.b64encode(binary_file_data).decode('utf-8')
+                    img64 += binary_file_encoded
+
                 hasil = {
                     "predict_eye" : result_eye,
-                    "image_eye" : img_64
+                    "image_eye" : img64
                 }
                 return jsonify(hasil)
         except Exception as e:
             return jsonify({"error": str(e)})
 
-    return 'Eye Predict'
+    return 'Eye Predict 1'
 
 
 if __name__ == "__main__":
