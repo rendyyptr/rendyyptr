@@ -5,7 +5,7 @@
 (MD) A7128F1572 – Leo Anang Miftahul Huda – Politeknik Negeri Jakarta\
 (MD) A7268F2319 – Rafif Apta Reswara – Universitas Muhammadiyah Surakarta\
 (CC) C2268F2313 – Adelia Putri Nur Ahni – Universitas Muhammadiyah Surakarta\
-(CC) C2268F2315 – Gita Juli Hartanti – Universitas Muhammadiyah Surakarta\
+(CC) C2268F2315 – Gita Juli Hartanti – Universitas Muhammadiyah Surakarta
 
 # SUMMARY
 "GluCare: check your potential diabetes through eye images" is an application that provides health services. This app helps users predict their diabetes level through eye photos. This application also provides assistance to doctors in predicting X-rays of the eyes to check the diagnosis of diabetic retinopathy.
