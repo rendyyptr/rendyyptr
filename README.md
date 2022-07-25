@@ -1,6 +1,6 @@
 # TOP 15 CAPSTONE PROJECT BANGKIT 2022 : GLUCARE (C22-PS266) | One of 15 Winners that got $10000 from Google and Kemenristekdikti 
 
-# My Team Member:\
+# My Team Member:
 (Machine Learning) M2015G1412 – Rendy Mahaputra – Universitas Negeri Yogyakarta\
 (Machine Learning) M2312F2693 – Yasmin Mufidah – Universitas Sebelas Maret\
 (Mobile Development) A7128F1572 – Leo Anang Miftahul Huda – Politeknik Negeri Jakarta\
