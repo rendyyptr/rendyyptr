@@ -1,0 +1,84 @@
+{"intents":[
+    {
+        "tag": "salam",
+        "pola": ["Hi", "Hey", "Halo", "hai"],
+        "respon": ["Hello", "Hi"]
+    },
+    {
+        "tag": "selesai",
+        "pola": [
+            "Tidak ada",
+            "Belum ada",
+            "ga ada",
+            "engga",
+            "tidak",
+            "ga",
+            "gak"
+        ],
+        "respon": [
+            "Semoga Sehat Selalu, silahkan ketik 'hi' untuk memulai kembali fitur GluAssistant"
+        ]
+    },
+    {
+        "tag": "about",
+        "pola": ["Siapa namamu", "Kamu siapa", "Kamu apa"],
+        "respon": ["Nama saya GluMan. Saya adalah AI yang dirancang oleh GluCare Team untuk membantu kamu mengidentifikasi diabetes"]
+    },
+    {
+        "tag": "tanya",
+        "pola": ["saya mau tanya", "boleh tanya ga", "bayar ga kalo nanya", "ini gratis?"],
+        "respon": ["Silahkan, layanan ini dapat kamu gunakan gratis selama 24 jam"]
+    },
+    {
+        "tag": "complaint",
+        "pola": [
+            "luka jatuh susah kering", 
+            "memar susah hilang", 
+            "kencing terus",
+            "saya selalu terbangun di tengah malam", 
+            "penglihatan bermasalah",
+            "mata suka kabur",
+            "mata saya susah melihat"
+        ],
+        "respon": [
+            "Apakah kamu memiliki gejala lain?", 
+            "Hal ini merupakan salah satu indikasi diabetes. Untuk pemeriksaan awal kami sarankan untuk menggunakan fitur GluCheck, apakah masih ada keluhan yang ingin disampaikan?"]
+    },
+    {
+        "tag": "nyeleneh_1",
+        "pola": [
+            "kenapa saya ga punya pacar",
+            "carikan saya pacar",
+            "kenapa saya jomblo",
+            "kenapa pacar saya ninggalin saya",
+            "boleh pinjam uang ga",
+            "carikan saya uang"
+        ],
+        "respon": [
+            "Mohon maaf saat ini Gluman belum menyediakan fitur yang kamu inginkan. Apakah masih ada keluhan yang ingin disampaikan?"
+        ]
+    },
+    {
+        "tag": "membantah",
+        "pola": [
+            "tapi saya selalu olahraga, masa iya diabetes",
+            "masa sih",
+            "keluarga saya gaada yang punya riwayat diabetes",
+            "masa si",
+            "saya olahraga terus kok"
+        ],
+        "respon": [
+            "Tentu saja ini hanyalah sebuah diagnosa awal dari keluhan yang anda berikan. Untuk pemeriksaan lebih lanjut anda dapat menggunakan fitur GluCheck atau lakukan pemeriksaan kesehatan pada fasilitas medis terdekat"
+        ]
+    },
+    {
+        "tag": "jawab",
+        "pola": [
+            "iya, masih ada"
+        ],
+        "respon": [
+            "Silahkan, sampaikan apa keluhanmu?"
+        ] 
+    }
+]
+}
